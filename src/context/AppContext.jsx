@@ -113,7 +113,7 @@ export const AppProvider = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ friends, splits, addFriend, addSplit, deleteSplit, settleTransaction, getTotalBalance, getEzPoints }}>
+    <AppContext.Provider value={{ friends, splits, addFriend, addSplit, deleteSplit, settleTransaction, getTotalBalance, getEzPoints, getDummyTransactions }}>
       {children}
     </AppContext.Provider>
   );
