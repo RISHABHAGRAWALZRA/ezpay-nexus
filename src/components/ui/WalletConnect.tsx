@@ -38,6 +38,7 @@ const WalletConnect = () => {
           method: "eth_accounts",
         })) as string[];
         if (accounts.length > 0) {
+          await handleInit(window.ethereum as EthereumProvider);
           setAccount(accounts[0]);
         }
       }

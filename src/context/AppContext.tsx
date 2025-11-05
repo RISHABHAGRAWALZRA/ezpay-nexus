@@ -44,6 +44,7 @@ type AppContextValue = {
   settleTransaction: (splitId: string) => void;
   getTotalBalance: () => string;
   getEzPoints: () => number;
+  getDummyTransactions: () => void;
 };
 
 const AppContext = createContext<AppContextValue | undefined>(undefined);
@@ -99,6 +100,55 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setSplits((prev) => prev.filter((split) => split.id !== splitId));
   };
 
+  const getDummyTransactions = () => [
+    {
+      id: "dummy-1",
+      title: "Netflix Subscription",
+      amount: "15.99",
+      perPersonAmount: (15.99 / 2).toFixed(2), // Equally distributed
+      date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+      participants: [
+        { id: "1", name: "John Doe" },
+        { id: "2", name: "Jane Smith" },
+      ],
+      paidByName: "Maria Ma",
+    },
+    {
+      id: "dummy-2",
+      title: "Coffee at Starbucks",
+      amount: "12.50",
+      perPersonAmount: (12.5 / 2).toFixed(2), // Equally distributed
+      date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+      participants: [
+        { id: "1", name: "John Doe" },
+        { id: "3", name: "Bob Wilson" },
+      ],
+      paidByName: "Maria Ma",
+    },
+    {
+      id: "dummy-3",
+      title: "Dinner at Italian Restaurant",
+      amount: "45.00",
+      perPersonAmount: (45.0 / 3).toFixed(2), // Equally distributed
+      date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
+      participants: [
+        { id: "2", name: "Jane Smith" },
+        { id: "3", name: "Bob Wilson" },
+        { id: "4", name: "Alice Brown" },
+      ],
+      paidByName: "Maria Ma",
+    },
+    {
+      id: "dummy-4",
+      title: "Uber Ride",
+      amount: "18.75",
+      perPersonAmount: "18.75", // Single participant
+      date: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
+      participants: [{ id: "1", name: "John Doe" }],
+      paidByName: "Maria Ma",
+    },
+  ];
+
   const settleTransaction = (splitId: string) => {
     setSplits((prev) =>
       prev.map((split) =>
@@ -127,6 +177,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       settleTransaction,
       getTotalBalance,
       getEzPoints,
+      getDummyTransactions,
     };
   }, [
     friends,
@@ -137,6 +188,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     settleTransaction,
     getTotalBalance,
     getEzPoints,
+    getDummyTransactions,
   ]);
 
   return (

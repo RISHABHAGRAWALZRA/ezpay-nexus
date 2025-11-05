@@ -21,7 +21,10 @@ function App() {
               <Route path="/friends/:friendId" element={<FriendProfile />} />
               <Route path="/add-friend" element={<AddFriend />} />
               <Route path="/create-split" element={<CreateSplit />} />
-              <Route path="/payment/:requestId" element={<PaymentRequest />} />
+              <Route
+                path="/payment/:requestId/:address"
+                element={<PaymentRequest />}
+              />
             </Routes>
           </main>
         </div>

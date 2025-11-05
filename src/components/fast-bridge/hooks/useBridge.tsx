@@ -45,7 +45,7 @@ const useBridge = ({
     chain:
       network === "testnet"
         ? SUPPORTED_CHAINS.SEPOLIA
-        : SUPPORTED_CHAINS.ETHEREUM,
+        : SUPPORTED_CHAINS.ARBITRUM,
     token: "USDC",
     amount: undefined,
     recipient: connectedAddress,
@@ -146,7 +146,7 @@ const useBridge = ({
       chain:
         network === "testnet"
           ? SUPPORTED_CHAINS.SEPOLIA
-          : SUPPORTED_CHAINS.ETHEREUM,
+          : SUPPORTED_CHAINS.ARBITRUM,
       token: "USDC",
       amount: undefined,
       recipient: connectedAddress,

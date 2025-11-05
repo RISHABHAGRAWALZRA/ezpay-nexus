@@ -33,14 +33,18 @@ const TransactionDetailModal = ({
 
     // Generate payment links for all participants
     const participants = transaction.participants || [];
+    const accounts = (await window.ethereum?.request({
+      method: "eth_accounts",
+    })) as string[];
     const linksData = participants.map(
       (friend: { id: string; name: string }) => {
         const requestId = `${transaction.id}_${friend.id}`;
-        const link = `${window.location.origin}/payment/${requestId}`;
+        const link = `${window.location.origin}/payment/${requestId}/${accounts[0]}`;
         return {
           id: friend.id,
           name: friend.name,
           paymentLink: link,
+          address: accounts[0],
         };
       }
     );
