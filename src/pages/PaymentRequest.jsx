@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ChevronDown } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
 import PaymentSuccessModal from '../components/ui/PaymentSuccessModal';
-import { NexusProvider, TransferButton } from '@avail-project/nexus-widgets';
 import { useNexus } from '@avail-project/nexus-widgets';
+import { TransferButton } from '@avail-project/nexus-widgets';
+
 
 const PaymentRequest = () => {
   const { requestId } = useParams();
@@ -154,19 +155,22 @@ const PaymentRequest = () => {
             </div>
 
             {/* Proceed Button */}
-            <NexusProvider
-              config={{
-                debug: false, // true to view debug logs
-                network: 'testnet', // "mainnet" (default) or "testnet"
-              }}
+
+            <TransferButton>
+              {({ onClick, isLoading }) => (
+                <button onClick={handleProceedToPay} className="w-full px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors shadow-sm">
+                  {isLoading ? 'Processing...' : 'Send Funds'}
+                </button>
+              )}
+            </TransferButton>
+
+            {/* <button
+              onClick={handleProceedToPay}
+              className="w-full px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors shadow-sm"
             >
-              <button
-                onClick={handleProceedToPay}
-                className="w-full px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors shadow-sm"
-              >
-                Proceed to Pay
-              </button>
-            </NexusProvider >
+              Proceed to Pay
+            </button> */}
+
           </div>
         </div>
       </div>
