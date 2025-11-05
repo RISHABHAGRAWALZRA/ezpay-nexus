@@ -4,10 +4,6 @@ import { Users, Receipt, CreditCard, TrendingUp } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 import logo from "../../assets/logo.png";
 import WalletConnect from "../ui/WalletConnect";
-import { Link, useLocation } from "react-router-dom";
-import { Users, CreditCard } from "lucide-react";
-import { useAppContext } from "../../context/AppContext";
-import WalletConnect from "../ui/WalletConnect";
 
 const Navbar = () => {
   const { getEzPoints } = useAppContext();
