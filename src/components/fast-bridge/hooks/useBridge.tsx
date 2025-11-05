@@ -11,6 +11,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import { type Address, isAddress } from "viem";
 import { useNexus } from "../../nexus/NexusProvider";
+import { useAppContext } from "@/context/AppContext";
 
 interface FastBridgeState {
   chain: SUPPORTED_CHAINS_IDS;
@@ -29,6 +30,8 @@ interface UseBridgeProps {
     React.SetStateAction<OnAllowanceHookData | null>
   >;
   unifiedBalance: UserAsset[] | null;
+  transactionId: string;
+  amount: string;
 }
 
 const useBridge = ({
@@ -39,15 +42,18 @@ const useBridge = ({
   setIntent,
   setAllowance,
   unifiedBalance,
+  transactionId,
+  amount: prefilledAmount,
 }: UseBridgeProps) => {
   const { fetchUnifiedBalance } = useNexus();
+  const { settleTransaction } = useAppContext();
   const [inputs, setInputs] = useState<FastBridgeState>({
     chain:
       network === "testnet"
         ? SUPPORTED_CHAINS.SEPOLIA
         : SUPPORTED_CHAINS.ARBITRUM,
     token: "USDC",
-    amount: undefined,
+    amount: prefilledAmount,
     recipient: connectedAddress,
   });
 
@@ -139,6 +145,7 @@ const useBridge = ({
       clearInterval(timerRef.current);
       timerRef.current = null;
     }
+    settleTransaction(transactionId);
     setStartTxn(false);
     setIntent(null);
     setAllowance(null);
@@ -178,9 +185,9 @@ const useBridge = ({
       chain:
         network === "testnet"
           ? SUPPORTED_CHAINS.SEPOLIA
-          : SUPPORTED_CHAINS.ETHEREUM,
+          : SUPPORTED_CHAINS.ARBITRUM,
       token: "USDC",
-      amount: undefined,
+      amount: prefilledAmount,
       recipient: connectedAddress,
     });
     setLoading(false);

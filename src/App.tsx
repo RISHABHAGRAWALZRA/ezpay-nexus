@@ -44,7 +44,7 @@ function App() {
             <Route path="/add-friend" element={<AddFriend />} />
             <Route path="/create-split" element={<CreateSplit />} />
             <Route
-              path="/payment/:requestId/:address:/:amount"
+              path="/payment/:requestId/:address/:amount"
               element={<PaymentRequest />}
             />
           </Routes>

@@ -8,7 +8,7 @@ import { useNexus } from "@/components/nexus/NexusProvider";
 import FastBridge from "@/components/fast-bridge/fast-bridge";
 
 const PaymentRequest = () => {
-  const { requestId, address } = useParams();
+  const { requestId, address, amount } = useParams();
   const navigate = useNavigate();
   const { unifiedBalance } = useNexus();
   const { splits, friends, settleTransaction } = useAppContext();
@@ -44,7 +44,7 @@ const PaymentRequest = () => {
     );
   }
 
-  const amount = parseFloat(transaction.perPersonAmount || 0).toFixed(2);
+  // const amount = parseFloat(transaction.perPersonAmount || 0).toFixed(2);
   const paymentMethods = ["Pay in USDC", "Pay in ETH", "Pay in USDT"];
 
   const handleProceedToPay = async () => {
@@ -181,7 +181,11 @@ const PaymentRequest = () => {
             >
               Proceed to Pay
             </button> */}
-            <FastBridge connectedAddress={address as `0x${string}`} />
+            <FastBridge
+              connectedAddress={address as `0x${string}`}
+              transactionId={transactionId}
+              amount={amount as string}
+            />
           </div>
         </div>
       </div>

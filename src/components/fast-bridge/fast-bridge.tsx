@@ -27,9 +27,15 @@ import { Card, CardContent } from "@/components/ui/Card";
 
 interface FastBridgeProps {
   connectedAddress: Address;
+  transactionId: string;
+  amount: string;
 }
 
-const FastBridge: FC<FastBridgeProps> = ({ connectedAddress }) => {
+const FastBridge: FC<FastBridgeProps> = ({
+  connectedAddress,
+  transactionId,
+  amount,
+}) => {
   const {
     nexusSDK,
     intent,
@@ -64,6 +70,8 @@ const FastBridge: FC<FastBridgeProps> = ({ connectedAddress }) => {
     setIntent,
     unifiedBalance,
     setAllowance,
+    transactionId,
+    amount,
   });
 
   const { processing, explorerUrl } = useListenTransaction(nexusSDK);
@@ -100,7 +108,7 @@ const FastBridge: FC<FastBridgeProps> = ({ connectedAddress }) => {
           onChange={(amount) => setInputs({ ...inputs, amount })}
           unifiedBalance={filteredUnifiedBalance}
           onCommit={() => void commitAmount()}
-          disabled={refreshing}
+          disabled={refreshing || !!amount}
         />
         <ReceipientAddress
           address={inputs?.recipient}
