@@ -158,7 +158,7 @@ const PaymentRequest = () => {
 
             <TransferButton>
               {({ onClick, isLoading }) => (
-                <button onClick={handleProceedToPay} className="w-full px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors shadow-sm">
+                <button onClick={onClick} className="w-full px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors shadow-sm">
                   {isLoading ? 'Processing...' : 'Send Funds'}
                 </button>
               )}
