@@ -44,7 +44,7 @@ const Friends = () => {
 
   // Calculate balance for a friend (excluding settled transactions)
   const getFriendBalance = (friendId) => {
-    const friendSplits = splits.filter(split => 
+    const friendSplits = splits.filter(split =>
       split.participants?.some(p => p.id === friendId) && !split.settled
     );
     return friendSplits.reduce((total, split) => total + parseFloat(split.perPersonAmount || 0), 0).toFixed(2);
@@ -53,7 +53,7 @@ const Friends = () => {
   // Get splits for selected friend
   const getSelectedFriendSplits = () => {
     if (!selectedFriend) return [];
-    return splits.filter(split => 
+    return splits.filter(split =>
       split.participants?.some(p => p.id === selectedFriend.id)
     );
   };
@@ -90,21 +90,20 @@ const Friends = () => {
             <h2 className="text-lg font-semibold text-gray-900">Your Friends</h2>
             <p className="text-xs text-gray-500 mt-1">{friends.length} {friends.length === 1 ? 'friend' : 'friends'}</p>
           </div>
-          
+
           {friends.length > 0 ? (
             <div className="divide-y divide-gray-100 max-h-[600px] overflow-y-auto">
               {friends.map((friend) => {
                 const balance = getFriendBalance(friend.id);
                 const isSelected = selectedFriend?.id === friend.id;
-                
+
                 return (
-                  <div 
-                    key={friend.id} 
-                    className={`p-5 cursor-pointer transition-all ${
-                      isSelected 
-                        ? 'bg-blue-50 border-l-4 border-l-blue-600' 
-                        : 'hover:bg-gray-50'
-                    }`}
+                  <div
+                    key={friend.id}
+                    className={`p-5 cursor-pointer transition-all ${isSelected
+                      ? 'bg-blue-50 border-l-4 border-l-blue-600'
+                      : 'hover:bg-gray-50'
+                      }`}
                     onClick={() => navigate(`/friends/${friend.id}`)}
                   >
                     <div className="flex items-center justify-between">
@@ -113,7 +112,7 @@ const Friends = () => {
                         <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${getAvatarGradient(friend.name)} flex items-center justify-center text-white font-semibold text-base flex-shrink-0`}>
                           {friend.name.charAt(0).toUpperCase()}
                         </div>
-                        
+
                         {/* Friend Info */}
                         <div className="flex-1 min-w-0">
                           <h3 className="text-sm font-semibold text-gray-900 truncate">
@@ -128,7 +127,7 @@ const Friends = () => {
                           </div>
                         </div>
                       </div>
-                      
+
                       {/* Balance Status */}
                       <div className="text-right ml-3">
                         {parseFloat(balance) > 0 ? (
@@ -177,7 +176,7 @@ const Friends = () => {
                 {splits.filter(s => !s.settled).length} active {splits.filter(s => !s.settled).length === 1 ? 'transaction' : 'transactions'}
               </p>
             </div>
-            
+
             <div className="max-h-[400px] overflow-y-auto">
               {splits.filter(s => !s.settled).length > 0 ? (
                 <div className="divide-y divide-gray-100">
@@ -220,7 +219,7 @@ const Friends = () => {
                   {splits.filter(s => s.settled).length} settled {splits.filter(s => s.settled).length === 1 ? 'transaction' : 'transactions'}
                 </p>
               </div>
-              
+
               <div className="max-h-[400px] overflow-y-auto">
                 <div className="divide-y divide-gray-100">
                   {splits.filter(s => s.settled).reverse().map((split) => (
@@ -248,6 +247,7 @@ const Friends = () => {
       {/* Transaction Detail Modal */}
       <TransactionDetailModal
         transaction={selectedTransaction}
+        address={window.ethereum.request({ method: 'eth_accounts' })[0]}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onDelete={handleDeleteTransaction}
