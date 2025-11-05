@@ -8,12 +8,14 @@ import { type Address } from "viem";
 
 interface ReceipientAddressProps {
   address?: Address;
+  disabled: boolean;
   onChange: (address: string) => void;
 }
 
 const ReceipientAddress: FC<ReceipientAddressProps> = ({
   address,
   onChange,
+  disabled,
 }) => {
   const { nexusSDK } = useNexus();
   const [isEditing, setIsEditing] = useState(false);
@@ -52,6 +54,7 @@ const ReceipientAddress: FC<ReceipientAddressProps> = ({
                 setIsEditing(true);
               }}
               className="px-0 size-6"
+              disabled={disabled}
             >
               <Edit className="size-6" />
             </Button>

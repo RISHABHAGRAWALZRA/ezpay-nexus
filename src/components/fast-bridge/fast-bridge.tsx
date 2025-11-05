@@ -29,12 +29,14 @@ interface FastBridgeProps {
   connectedAddress: Address;
   transactionId: string;
   amount: string;
+  recipient: Address;
 }
 
 const FastBridge: FC<FastBridgeProps> = ({
   connectedAddress,
   transactionId,
   amount,
+  recipient,
 }) => {
   const {
     nexusSDK,
@@ -72,6 +74,7 @@ const FastBridge: FC<FastBridgeProps> = ({
     setAllowance,
     transactionId,
     amount,
+    recipient,
   });
 
   const { processing, explorerUrl } = useListenTransaction(nexusSDK);
@@ -111,10 +114,11 @@ const FastBridge: FC<FastBridgeProps> = ({
           disabled={refreshing || !!amount}
         />
         <ReceipientAddress
-          address={inputs?.recipient}
+          address={recipient}
           onChange={(address) =>
             setInputs({ ...inputs, recipient: address as `0x${string}` })
           }
+          disabled={!!recipient}
         />
         {intent?.intent && (
           <>

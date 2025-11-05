@@ -32,6 +32,7 @@ interface UseBridgeProps {
   unifiedBalance: UserAsset[] | null;
   transactionId: string;
   amount: string;
+  recipient: Address;
 }
 
 const useBridge = ({
@@ -44,6 +45,7 @@ const useBridge = ({
   unifiedBalance,
   transactionId,
   amount: prefilledAmount,
+  recipient: prefilledRecipient,
 }: UseBridgeProps) => {
   const { fetchUnifiedBalance } = useNexus();
   const { settleTransaction } = useAppContext();
@@ -54,7 +56,7 @@ const useBridge = ({
         : SUPPORTED_CHAINS.ARBITRUM,
     token: "USDC",
     amount: prefilledAmount,
-    recipient: connectedAddress,
+    recipient: prefilledRecipient,
   });
 
   const [timer, setTimer] = useState(0);
@@ -188,7 +190,7 @@ const useBridge = ({
           : SUPPORTED_CHAINS.ARBITRUM,
       token: "USDC",
       amount: prefilledAmount,
-      recipient: connectedAddress,
+      recipient: prefilledRecipient,
     });
     setLoading(false);
     setStartTxn(false);

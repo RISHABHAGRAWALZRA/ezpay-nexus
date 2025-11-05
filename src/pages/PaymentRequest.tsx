@@ -6,9 +6,11 @@ import LoadingOverlay from "../components/ui/LoadingOverlay";
 import PaymentSuccessModal from "../components/ui/PaymentSuccessModal";
 import { useNexus } from "@/components/nexus/NexusProvider";
 import FastBridge from "@/components/fast-bridge/fast-bridge";
+import { useAccount } from "wagmi";
 
 const PaymentRequest = () => {
   const { requestId, address, amount } = useParams();
+  const { address: connectedAddress } = useAccount();
   const navigate = useNavigate();
   const { unifiedBalance } = useNexus();
   const { splits, friends, settleTransaction } = useAppContext();
@@ -182,9 +184,10 @@ const PaymentRequest = () => {
               Proceed to Pay
             </button> */}
             <FastBridge
-              connectedAddress={address as `0x${string}`}
+              connectedAddress={connectedAddress as `0x${string}`}
               transactionId={transactionId}
               amount={amount as string}
+              recipient={address as `0x${string}`}
             />
           </div>
         </div>
