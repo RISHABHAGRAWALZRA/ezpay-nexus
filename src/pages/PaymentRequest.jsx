@@ -4,6 +4,8 @@ import { ArrowLeft, ChevronDown } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
 import PaymentSuccessModal from '../components/ui/PaymentSuccessModal';
+import { NexusProvider, TransferButton } from '@avail-project/nexus-widgets';
+import { useNexus } from '@avail-project/nexus-widgets';
 
 const PaymentRequest = () => {
   const { requestId } = useParams();
@@ -13,11 +15,11 @@ const PaymentRequest = () => {
   const [showMethodDropdown, setShowMethodDropdown] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-
+  const { setProvider } = useNexus();
   // Decode the request ID to get transaction and friend info
   // Format: transactionId_friendId
   const [transactionId, friendId] = requestId ? requestId.split('_') : ['', ''];
-  
+
   const transaction = splits.find(s => s.id === transactionId);
   const friend = friends.find(f => f.id === friendId);
 
@@ -41,15 +43,20 @@ const PaymentRequest = () => {
   const amount = parseFloat(transaction.perPersonAmount || 0).toFixed(2);
   const paymentMethods = ['Pay in USDC', 'Pay in ETH', 'Pay in USDT'];
 
+
+  useEffect(() => {
+    setProvider(window.ethereum);
+  }, []);
+
   const handleProceedToPay = async () => {
     setIsProcessing(true);
-    
+
     // Simulate payment processing
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     // Mark transaction as settled
     settleTransaction(transactionId);
-    
+
     setIsProcessing(false);
     setShowSuccess(true);
   };
@@ -60,6 +67,7 @@ const PaymentRequest = () => {
   };
 
   return (
+
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
         {/* Back Button */}
@@ -146,15 +154,23 @@ const PaymentRequest = () => {
             </div>
 
             {/* Proceed Button */}
-            <button 
-              onClick={handleProceedToPay}
-              className="w-full px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors shadow-sm"
+            <NexusProvider
+              config={{
+                debug: false, // true to view debug logs
+                network: 'testnet', // "mainnet" (default) or "testnet"
+              }}
             >
-              Proceed to Pay
-            </button>
+              <button
+                onClick={handleProceedToPay}
+                className="w-full px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors shadow-sm"
+              >
+                Proceed to Pay
+              </button>
+            </NexusProvider >
           </div>
         </div>
       </div>
+
 
       {/* Loading Overlay */}
       {isProcessing && <LoadingOverlay message="Processing Payment..." />}
@@ -166,7 +182,8 @@ const PaymentRequest = () => {
         amount={amount}
         friendName={transaction.paidByName === 'You' ? 'Maria Ma' : transaction.paidByName || 'Maria Ma'}
       />
-    </div>
+    </div >
+
   );
 };
 
