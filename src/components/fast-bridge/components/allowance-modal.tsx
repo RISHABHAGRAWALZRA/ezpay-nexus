@@ -15,6 +15,8 @@ import {
   type OnAllowanceHookData,
 } from "@avail-project/nexus-core";
 import { useNexus } from "../../nexus/NexusProvider";
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/Button";
 
 interface AllowanceModalProps {
   allowanceModal: OnAllowanceHookData | null;

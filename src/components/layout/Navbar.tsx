@@ -4,6 +4,7 @@ import { Users, Receipt, CreditCard, TrendingUp } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 import logo from "../../assets/logo.png";
 import WalletConnect from "../ui/WalletConnect";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Navbar = () => {
   const { getEzPoints } = useAppContext();
@@ -54,7 +55,8 @@ const Navbar = () => {
             <div className="bg-gray-100 rounded-full px-4 py-1.5 text-sm font-medium text-gray-700">
               {getEzPoints()} ezPoints
             </div>
-            <WalletConnect />
+            {/* <WalletConnect /> */}
+            <ConnectButton />
           </div>
         </div>
       </div>

@@ -109,7 +109,7 @@ const PaymentRequest = () => {
             </h2>
 
             {/* Payment Method Dropdown */}
-            <div className="relative">
+            {/* <div className="relative">
               <button
                 onClick={() => setShowMethodDropdown(!showMethodDropdown)}
                 className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg text-left flex items-center justify-between hover:border-gray-300 transition-colors"
@@ -136,7 +136,7 @@ const PaymentRequest = () => {
                   ))}
                 </div>
               )}
-            </div>
+            </div> */}
 
             {/* Unified Balance */}
             <div className="flex items-center justify-center space-x-2 text-gray-600">

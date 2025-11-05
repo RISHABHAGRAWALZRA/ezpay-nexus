@@ -7,6 +7,7 @@ import {
   type ReactNode,
   useMemo,
 } from "react";
+import Web3Provider from "./Web3Context";
 
 export type Friend = {
   id: string;
@@ -191,9 +192,5 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     getDummyTransactions,
   ]);
 
-  return (
-    <AppContext.Provider value={value}>
-      <NexusProvider>{children}</NexusProvider>
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

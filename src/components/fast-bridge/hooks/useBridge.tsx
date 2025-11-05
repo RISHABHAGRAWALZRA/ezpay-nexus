@@ -211,7 +211,7 @@ const useBridge = ({
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (intent) {
-      interval = setInterval(refreshIntent, 5000);
+      interval = setInterval(refreshIntent, 15000);
     }
     return () => {
       clearInterval(interval);

@@ -39,12 +39,13 @@ const TransactionDetailModal = ({
     const linksData = participants.map(
       (friend: { id: string; name: string }) => {
         const requestId = `${transaction.id}_${friend.id}`;
-        const link = `${window.location.origin}/payment/${requestId}/${accounts[0]}`;
+        const link = `${window.location.origin}/payment/${requestId}/${accounts[0]}/${transaction.amount}`;
         return {
           id: friend.id,
           name: friend.name,
           paymentLink: link,
           address: accounts[0],
+          amount: transaction.amount,
         };
       }
     );
