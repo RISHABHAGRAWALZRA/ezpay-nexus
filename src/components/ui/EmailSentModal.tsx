@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
-import { X, Copy, Check, Mail } from 'lucide-react';
+import React, { useState } from "react";
+import { X, Copy, Check, Mail } from "lucide-react";
 
-const EmailSentModal = ({ isOpen, onClose, friends = [] }) => {
-  const [copiedIndex, setCopiedIndex] = useState(null);
+const EmailSentModal = ({
+  isOpen,
+  onClose,
+  friends = [],
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  friends: { id: string; name: string; paymentLink: string }[];
+}) => {
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   if (!isOpen) return null;
 
-  const handleCopyLink = (link, index) => {
+  const handleCopyLink = (link: string, index: number) => {
     navigator.clipboard.writeText(link);
     setCopiedIndex(index);
     setTimeout(() => setCopiedIndex(null), 2000);
   };
 
   // Format friend names for display
-  const friendNames = friends.map(f => f.name).join(', ');
+  const friendNames = friends.map((f) => f.name).join(", ");
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60] p-4">
@@ -37,15 +45,20 @@ const EmailSentModal = ({ isOpen, onClose, friends = [] }) => {
         {/* Content */}
         <div className="p-6 space-y-6">
           <p className="text-gray-700">
-            Payment request email has been sent to <span className="font-semibold">{friendNames}</span>
+            Payment request email has been sent to{" "}
+            <span className="font-semibold">{friendNames}</span>
           </p>
 
           {/* Payment Links for Each Friend */}
           <div className="space-y-4">
-            <label className="text-sm font-medium text-gray-700">Payment Links</label>
+            <label className="text-sm font-medium text-gray-700">
+              Payment Links
+            </label>
             {friends.map((friend, index) => (
               <div key={friend.id} className="space-y-2">
-                <p className="text-sm font-medium text-gray-900">{friend.name}</p>
+                <p className="text-sm font-medium text-gray-900">
+                  {friend.name}
+                </p>
                 <div className="flex items-center space-x-2">
                   <input
                     type="text"
@@ -77,7 +90,8 @@ const EmailSentModal = ({ isOpen, onClose, friends = [] }) => {
           {/* Info */}
           <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
             <p className="text-sm text-blue-900">
-              Share these links with your friends to receive payment directly to your wallet.
+              Share these links with your friends to receive payment directly to
+              your wallet.
             </p>
           </div>
         </div>

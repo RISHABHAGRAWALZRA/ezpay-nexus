@@ -1,7 +1,7 @@
-import React from 'react';
-import { Send, Bell, Share2 } from 'lucide-react';
+import React from "react";
+import { Send, Bell, Share2 } from "lucide-react";
 
-const BalanceCard = ({ name, total }) => {
+const BalanceCard = ({ name, total }: { name: string; total: string }) => {
   return (
     <div className="w-full max-w-md mx-auto">
       {/* Card */}
@@ -35,14 +35,22 @@ const BalanceCard = ({ name, total }) => {
           <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center mb-2 group-hover:shadow-xl transition-shadow">
             <Send className="w-6 h-6 text-blue-600" />
           </div>
-          <span className="text-xs font-medium text-gray-700">Send<br />Payment</span>
+          <span className="text-xs font-medium text-gray-700">
+            Send
+            <br />
+            Payment
+          </span>
         </button>
 
         <button className="flex flex-col items-center group">
           <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center mb-2 group-hover:shadow-xl transition-shadow">
             <Share2 className="w-6 h-6 text-blue-500" />
           </div>
-          <span className="text-xs font-medium text-gray-700">Share<br />Invite</span>
+          <span className="text-xs font-medium text-gray-700">
+            Share
+            <br />
+            Invite
+          </span>
         </button>
       </div>
     </div>

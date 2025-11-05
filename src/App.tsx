@@ -1,13 +1,12 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Navbar from './components/layout/Navbar'
-import Dashboard from './pages/Dashboard'
-import Friends from './pages/Friends'
-import FriendProfile from './pages/FriendProfile'
-import AddFriend from './pages/AddFriend'
-import CreateSplit from './pages/CreateSplit'
-import PaymentRequest from './pages/PaymentRequest'
-import { AppProvider } from './context/AppContext'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import Dashboard from "./pages/Dashboard";
+import Friends from "./pages/Friends";
+import FriendProfile from "./pages/FriendProfile";
+import AddFriend from "./pages/AddFriend";
+import CreateSplit from "./pages/CreateSplit";
+import PaymentRequest from "./pages/PaymentRequest";
+import { AppProvider } from "./context/AppContext";
 
 function App() {
   return (
@@ -28,7 +27,7 @@ function App() {
         </div>
       </Router>
     </AppProvider>
-  )
+  );
 }
 
-export default App
+export default App;

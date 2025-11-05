@@ -1,7 +1,17 @@
-import React from 'react';
-import { CheckCircle, X } from 'lucide-react';
+import React from "react";
+import { CheckCircle, X } from "lucide-react";
 
-const PaymentSuccessModal = ({ isOpen, onClose, amount, friendName }) => {
+const PaymentSuccessModal = ({
+  isOpen,
+  onClose,
+  amount,
+  friendName,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  amount: string;
+  friendName: string;
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -28,9 +38,12 @@ const PaymentSuccessModal = ({ isOpen, onClose, amount, friendName }) => {
 
           {/* Success Message */}
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-gray-900">Payment Successful!</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Payment Successful!
+            </h2>
             <p className="text-gray-600">
-              You've successfully paid <span className="font-semibold">${amount}</span> to {friendName}
+              You've successfully paid{" "}
+              <span className="font-semibold">${amount}</span> to {friendName}
             </p>
           </div>
         </div>
