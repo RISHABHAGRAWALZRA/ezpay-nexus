@@ -10,9 +10,68 @@ export const AppProvider = ({ children }) => {
     return savedFriends ? JSON.parse(savedFriends) : [];
   });
 
+  // Dummy transaction data
+  const getDummyTransactions = () => [
+    {
+      id: 'dummy-1',
+      title: 'Netflix Subscription',
+      amount: '15.99',
+      perPersonAmount: '15.99',
+      date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+      participants: [
+        { id: '1', name: 'John Doe' },
+        { id: '2', name: 'Jane Smith' }
+      ],
+      paidByName: 'Maria Ma'
+    },
+    {
+      id: 'dummy-2',
+      title: 'Coffee at Starbucks',
+      amount: '12.50',
+      perPersonAmount: '6.25',
+      date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+      participants: [
+        { id: '1', name: 'John Doe' },
+        { id: '3', name: 'Bob Wilson' }
+      ],
+      paidByName: 'Maria Ma'
+    },
+    {
+      id: 'dummy-3',
+      title: 'Dinner at Italian Restaurant',
+      amount: '45.00',
+      perPersonAmount: '22.50',
+      date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
+      participants: [
+        { id: '2', name: 'Jane Smith' },
+        { id: '3', name: 'Bob Wilson' },
+        { id: '4', name: 'Alice Brown' }
+      ],
+      paidByName: 'Maria Ma'
+    },
+    {
+      id: 'dummy-4',
+      title: 'Uber Ride',
+      amount: '18.75',
+      perPersonAmount: '18.75',
+      date: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
+      participants: [
+        { id: '1', name: 'John Doe' }
+      ],
+      paidByName: 'Maria Ma'
+    }
+  ];
+
   const [splits, setSplits] = useState(() => {
     const savedSplits = localStorage.getItem('splits');
-    return savedSplits ? JSON.parse(savedSplits) : [];
+    const parsedSplits = savedSplits ? JSON.parse(savedSplits) : [];
+
+    // If no saved splits exist, initialize with dummy data
+    if (parsedSplits.length === 0) {
+      return getDummyTransactions();
+    }
+
+    return parsedSplits;
   });
 
   const [ezPoints, setEzPoints] = useState(() => {
@@ -47,7 +106,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const settleTransaction = (splitId) => {
-    setSplits(splits.map(split => 
+    setSplits(splits.map(split =>
       split.id === splitId ? { ...split, settled: true, settledDate: new Date().toISOString() } : split
     ));
   };
